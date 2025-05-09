@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    
+
+    <link rel="stylesheet" href="/style/card.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <img src="assets/logo.png" class="img-fluid border border- rounded-circle shadow-lg " style="height: 60px;" alt="logo"></img>
+        <div class="ms-auto">
+          <a class="btn btn-outline-light me-2" href="/login/login.html"
+            >Logar</a
+          >
+          <a class="btn btn-outline-light" href="/cadastro/cadastro.html"
+            >Cadastrar-se</a
+          >
+        </div>
+      </div>
+    </nav>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cards com map()</title>
+
+        <!-- Bootstrap e Ícones -->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <div class="container my-5">
+          <h3 class="mb-4">Informações Sobre o Projeto</h3>
+          <p>
+            Este projeto tem como objetivo criar uma plataforma para interação e
+            compartilhamento de ideias.
+          </p>
+
+          <!-- Onde os cards serão inseridos -->
+          <div id="cardsContainer" class="row mt-4"></div>
+        </div>
+
+        <script>
+          const teamMembers = [
+            {
+              name: "João Silva",
+              github: "#",
+              instagram: "#",
+              description:
+                "Desenvolvedor Front-End apaixonado por React e UI Design.",
+            },
+            {
+              name: "Jão",
+              github: "#",
+              instagram: "#",
+              description: "Especialista em Backend com foco em APIs RESTful.",
+            },
+            {
+              name: "Carlos Santos",
+              github: "#",
+              instagram: "# ",
+              description:
+                "Engenheiro de Software focado em arquitetura de sistemas.",
+            },
+          ];
+
+const container = document.getElementById("cardsContainer");
+
+// Usa map() para gerar um array de HTML strings
+const cardsHTML = teamMembers.map((member) => {
+  return `
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm card-hover"> <!-- Adicionando a classe card-hover -->
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <div class="rounded-circle bg-light d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
+              <i class="bi bi-person" style="font-size: 2rem;"></i>
+            </div>
+            <div class="ms-3">
+              <h5 class="mb-0">${member.name}</h5>
+            </div>
+          </div>
+          <p>${member.description}</p>
+          <div class="d-flex gap-3">
+            <a href="${member.github}" class="text-dark" target="_blank">
+              <i class="bi bi-github fs-4"></i>
+            </a>
+            <a href="${member.instagram}" class="text-danger" target="_blank">
+              <i class="bi bi-instagram fs-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+          // Junta as strings e insere no container
+          container.innerHTML = cardsHTML.join("");
+        </script>
+      </body>
+    </html>
+
+    <!-- Bootstrap JS (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
