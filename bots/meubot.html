@@ -13,6 +13,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   </head>
   <body>
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <img src="assets/logo.png" class="img-fluid border border- rounded-circle shadow-lg " style="height: 60px;" alt="logo"></img>
+        <div class="ms-auto">
+          <a class="btn btn-outline-light me-2" href="/index.html"
+            >Tela inicial</a
+          >
+        </div>
+      </div>
+    </nav>
     <div id="root"></div>
 
     <!-- React, ReactDOM, Babel -->
@@ -36,6 +47,11 @@
 
         // estado do formulário do bot
         const [form, setForm] = React.useState({ numero: "", titulo: "", descricao: "" });
+
+        const [confirmarExclusao, setConfirmarExclusao] = React.useState(false);
+
+        const [indexParaExcluir, setIndexParaExcluir] = React.useState(null);
+
 
         // abre o modal de criação ou edição de bot
         // se index for null, abre para criar um novo bot, senão abre para editar o bot existente
@@ -63,6 +79,11 @@
           setModalAberto(false);
           setForm({ numero: "", titulo: "", descricao: "" });
           setEditandoIndex(null);
+        };
+
+        const solicitarConfirmacaoRemocao = (index) => {
+          setIndexParaExcluir(index);
+          setConfirmarExclusao(true);
         };
 
         const removerBot = (index) => {
@@ -108,7 +129,7 @@
                     <button className="btn btn-sm btn-warning me-2" onClick={() => abrirModal(index)}>
                       <i className="bi bi-pencil"></i>
                     </button>
-                    <button className="btn btn-sm btn-danger" onClick={() => removerBot(index)}>
+                    <button className="btn btn-sm btn-danger" onClick={() => solicitarConfirmacaoRemocao(index)}>
                       <i className="bi bi-trash"></i>
                     </button>
                   </div>
@@ -119,7 +140,7 @@
               )}
             </ul>
 
-            {/* Modal */}
+            {/* Modal de criação/edição */}
             {modalAberto && (
               <div className="modal-backdrop-custom">
                 <div className="modal-dialog-custom">
@@ -154,6 +175,36 @@
                     <div className="modal-footer d-flex justify-content-between">
                       <button className="btn btn-secondary" onClick={() => setModalAberto(false)}>Cancelar</button>
                       <button className="btn btn-primary" onClick={salvarBot}>Enviar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Modal de confirmação de exclusão */}
+            {confirmarExclusao && (
+              <div className="modal-backdrop-custom">
+                <div className="modal-dialog-custom">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title">Confirmar Exclusão</h5>
+                      <button type="button" className="btn-close" onClick={() => setConfirmarExclusao(false)}></button>
+                    </div>
+                    <div className="modal-body">
+                      <p>Tem certeza que deseja excluir este bot? Essa ação não pode ser desfeita.</p>
+                    </div>
+                    <div className="modal-footer d-flex justify-content-between">
+                      <button className="btn btn-secondary" onClick={() => setConfirmarExclusao(false)}>Cancelar</button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => {
+                          removerBot(indexParaExcluir);
+                          setConfirmarExclusao(false);
+                          setIndexParaExcluir(null);
+                        }}
+                      >
+                        Confirmar
+                      </button>
                     </div>
                   </div>
                 </div>
