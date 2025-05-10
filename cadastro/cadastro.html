@@ -34,10 +34,29 @@
     <script type="text/babel">
       function Cadastro() {
         const [mostrarSenha, setMostrarSenha] = React.useState(false);
+        const [cadastroConcluido, setCadastroConcluido] = React.useState(false);
 
         const alternarVisibilidade = () => {
           setMostrarSenha((prev) => !prev);
         };
+
+        const confirmarCadastro = () => {
+          setCadastroConcluido(true);
+        };
+
+        if (cadastroConcluido) {
+          return (
+            <div className="container d-flex justify-content-center align-items-center vh-100">
+              <div className="card p-4 shadow-lg text-center">
+                <h4 className="mb-3">Cadastro realizado com sucesso!</h4>
+                <p>Você já pode fazer login na sua conta.</p>
+                <button className="btn btn-primary mt-3" onClick={() => window.location.href = '../login/login.html'}>
+                  Ir para o login
+                </button>
+              </div>
+            </div>
+          );
+        }
 
         return (
           <div className="container d-flex justify-content-center align-items-center vh-100">
@@ -48,22 +67,14 @@
                 <span className="input-group-text">
                   <i className="bi bi-person"></i>
                 </span>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Nome"
-                />
+                <input type="text" className="form-control" placeholder="Nome" />
               </div>
 
               <div className="mb-3 input-group">
                 <span className="input-group-text">
                   <i className="bi bi-envelope"></i>
                 </span>
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                />
+                <input type="email" className="form-control" placeholder="Email" />
               </div>
 
               <div className="mb-3 input-group">
@@ -80,24 +91,19 @@
                   style={{ cursor: "pointer" }}
                   onClick={alternarVisibilidade}
                 >
-                  <i
-                    className={`bi ${mostrarSenha ? "bi-eye" : "bi-eye-slash"}`}
-                  ></i>
+                  <i className={`bi ${mostrarSenha ? "bi-eye" : "bi-eye-slash"}`}></i>
                 </span>
               </div>
 
               <div className="d-flex justify-content-between">
-                <a href="../index.html">
-                  <button className="btn btn-secondary">Cancelar</button>
-                </a>
-                <a href="../login/login.html">
-                  <button className="btn btn-success">Confirmar</button>
-                </a>
+                <button className="btn btn-secondary">Cancelar</button>
+                <button className="btn btn-success" onClick={confirmarCadastro}>Confirmar</button>
               </div>
             </div>
           </div>
         );
       }
+
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<Cadastro />);
